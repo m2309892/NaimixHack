@@ -19,7 +19,7 @@ class EmployeeBase(BaseModel):
     resume_url: Optional[str] = None
     bio: str
     
-    @field_validator("phone_number")
+    @field_validator("number")
     def validate_phone_number(cls, value: str) -> str:
         if not re.match(r'^\+\d{5,15}$', value):
             raise ValueError('Номер телефона должен начинаться с "+" и содержать от 5 до 15 цифр')
