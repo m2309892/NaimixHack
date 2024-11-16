@@ -6,7 +6,7 @@ from typing import TYPE_CHECKING
 from sqlalchemy.orm import relationship, Mapped, mapped_column
 from sqlalchemy import String, TIMESTAMP, Column, Integer, ForeignKey, Table, FetchedValue, Enum, Date, Time
 
-from app.models.base import Base, HasDates
+from app.src.models.base import Base, HasDates
 
 
 

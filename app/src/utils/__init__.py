@@ -1,4 +1,4 @@
-from app.models.create import LocalSession
+from app.src.models.create import LocalSession
 from typing import Annotated, TYPE_CHECKING
 from fastapi import Depends
 

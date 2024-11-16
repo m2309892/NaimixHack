@@ -1,9 +1,9 @@
 from fastapi import APIRouter, Depends, HTTPException, UploadFile
-import app.utils
-from app.schemas.user import User, UserUpdate, ProfileRegister
-from app.schemas.others import AdvertRead, ResponseRead, AdvertCreate
-import app.crud.user as crud_user
-import app.crud.others as crud_others
+import app.src.utils
+from app.src.schemas.user import User, UserUpdate, ProfileRegister
+from app.src.schemas.others import AdvertRead, ResponseRead, AdvertCreate
+import app.src.crud.user as crud_user
+import app.src.crud.others as crud_others
 
 router = APIRouter(prefix="/profile", tags=["profile"])
 

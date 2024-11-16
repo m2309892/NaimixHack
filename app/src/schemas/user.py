@@ -1,4 +1,4 @@
-from app.schemas.base import Base
+from app.src.schemas.base import Base
 from pydantic import BaseModel, ConfigDict, EmailStr, Field, field_validator, model_validator, computed_field
 
 

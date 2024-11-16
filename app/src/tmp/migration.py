@@ -1,8 +1,8 @@
-from app.models.create import  LocalSession
+from app.src.models.create import  LocalSession
 from faker import Faker
 from random import randint, choice
 from sqlalchemy.orm import sessionmaker
-from app.models.user import User, Team, Advert, Response, SimpleEmployee, CompanyEmployee  # Импорт моделей
+from app.src.models.user import User, Team, Advert, Response, SimpleEmployee, CompanyEmployee  # Импорт моделей
 
 # Создаем экземпляр Faker для генерации случайных данных
 fake = Faker()

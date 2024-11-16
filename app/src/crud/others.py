@@ -1,12 +1,12 @@
-from app.models import user as dbu
+from app.src.models import user as dbu
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 from typing import Union, Sequence, Type, overload, List
 import boto3
 from datetime import date, time
 
-from app.models.user import User
-from app.models.config import config
+from app.src.models.user import User
+from app.src.models.config import config
 
 
 #COMPANYEMPLOYEE

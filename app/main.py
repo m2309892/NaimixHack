@@ -1,9 +1,9 @@
 from fastapi import FastAPI
 
-import app.schemas.base
-import app.models.create
-from app.routes import profile, auth, astro
-from app.tmp import migration
+import app.src.schemas.base
+import app.src.models.create
+from app.src.routes import profile, auth, astro
+from app.src.tmp import migration
 
 
 

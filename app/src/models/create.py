@@ -1,6 +1,6 @@
-from app.models.base import Base
+from app.src.models.base import Base
 from sqlalchemy import create_engine
-from app.models.config import config
+from app.src.models.config import config
 
 url = f'postgresql://{config.POSTGRES_USER}:{config.POSTGRES_PASSWORD}@{config.POSTGRES_HOST}:{config.POSTGRES_PORT}/{config.POSTGRES_DB}'
 engine = create_engine(

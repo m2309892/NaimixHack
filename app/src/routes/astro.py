@@ -1,15 +1,15 @@
 from fastapi import APIRouter, Depends, HTTPException, UploadFile
-import app.utils
-from app.schemas.user import User, UserUpdate, ProfileRegister
-from app.schemas.others import AdvertRead, ResponseRead, EmployeeRead
-import app.crud.user as crud_user
-import app.crud.others as crud_others
+import app.src.utils
+from app.src.schemas.user import User, UserUpdate, ProfileRegister
+from app.src.schemas.others import AdvertRead, ResponseRead, EmployeeRead
+import app.src.crud.user as crud_user
+import app.src.crud.others as crud_others
 from kerykeion import KerykeionChartSVG, AstrologicalSubject
 from fastapi.responses import Response
 from kerykeion.kr_types.kr_models import AstrologicalSubjectModel
 
-from app.utils.astro import *
-from app.utils.convert import *
+from app.src.utils.astro import *
+from app.src.utils.convert import *
 
 router = APIRouter(prefix="/astro", tags=["astro"])
 

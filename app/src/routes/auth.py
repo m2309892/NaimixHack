@@ -4,13 +4,13 @@ from typing import Annotated
 from fastapi import APIRouter, status, HTTPException, Depends
 from fastapi.security import OAuth2PasswordRequestForm
 
-import app.crud.user
-from app.crud.user import get_user_by_email, create_user
-from app.models import config
+import app.src.crud.user
+from app.src.crud.user import get_user_by_email, create_user
+from app.src.models import config
 
-from app.utils import DbDep
-from app.schemas.user import UserRegister
-from app.utils.auth import authenticate_user, create_access_token, get_password_hash
+from app.src.utils import DbDep
+from app.src.schemas.user import UserRegister
+from app.src.utils.auth import authenticate_user, create_access_token, get_password_hash
 
 router = APIRouter()
 
