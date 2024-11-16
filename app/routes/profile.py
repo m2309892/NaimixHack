@@ -1,8 +1,9 @@
 from fastapi import APIRouter, Depends, HTTPException, UploadFile
 import app.utils
 from app.schemas.user import User, UserUpdate, ProfileRegister
-from app.schemas.others import AdvertRead, ResponseRead
+from app.schemas.others import AdvertRead, ResponseRead, AdvertCreate
 import app.crud.user as crud_user
+import app.crud.others as crud_others
 
 router = APIRouter(prefix="/profile", tags=["profile"])
 
@@ -21,12 +22,19 @@ def get_profile(id: int, db: app.utils.DbDep) -> User:
     return user
 
 
+
 @router.get("/{id}/adverts/")
 def get_adverts(id: int, db: app.utils.DbDep) -> list[AdvertRead]:
     adverts = crud_user.get_user_adverts(db, id)
     if not adverts:
         raise HTTPException(status_code=404, detail="Adverts not found")
     return adverts
+
+
+@router.post("/{id}/add_advert")
+def post_advert(id: int, db: app.utils.DbDep, data: AdvertCreate) -> AdvertRead:
+    advert = crud_others.create_company_advert(db, id, **data.model_dump())
+    return advert
 
 
 @router.get("/{id}/adverts/{advert_id}")
@@ -40,6 +48,8 @@ def get_advert_by_id(id: int, advert_id: int, db: app.utils.DbDep) -> AdvertRead
             return advert
         
     raise HTTPException(status_code=404, detail="Advert not found")
+
+@router.get("/{id}/adverts/{advert_id}/responses")
     
 
 @router.get("/{id}/responses")

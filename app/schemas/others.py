@@ -6,8 +6,6 @@ from pydantic import BaseModel, Field, EmailStr
 from typing import List, Optional
 from datetime import date, time
 
-
-
 # Схема для Employee
 class EmployeeBase(BaseModel):
     name: str
@@ -18,6 +16,7 @@ class EmployeeBase(BaseModel):
     birth_place: str
     resume_url: Optional[str] = None
     bio: str
+    _type: str
     
     @field_validator("phone_number")
     def validate_phone_number(cls, value: str) -> str:
