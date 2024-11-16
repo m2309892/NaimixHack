@@ -1,0 +1,35 @@
+name: naimix-code-hack
+volumes:
+  local_pg_data:
+services:
+  db:
+    image: postgres:14
+    restart: unless-stopped
+    env_file:
+      - .env
+    volumes:
+      - local_pg_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "sh -c 'pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}'"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    env_file:
+      - .env
+    ports:
+      - "80:3333"
+    depends_on:
+      db:
+        condition: service_healthy
+    labels:
+        - "traefik.enable=true"
+        - "traefik.http.services.${SERVICE_NAME}.loadbalancer.server.port=3333"
+        - "traefik.http.routers.${SERVICE_NAME}.tls.certresolver=le"
+        - "traefik.http.routers.${SERVICE_NAME}.rule=Host(`naimix-code-hack.onixx.ru`)"
+        - "traefik.http.routers.${SERVICE_NAME}.entrypoints=websecure"
+        - "traefik.http.routers.${SERVICE_NAME}.tls=true"
