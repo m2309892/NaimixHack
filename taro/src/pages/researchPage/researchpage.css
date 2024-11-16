@@ -1,0 +1,52 @@
+.outline {
+    padding: 40px 40px 0 40px;
+    background-color: var( --n-grey);
+
+}
+
+.inner {
+    display: flex;
+    padding: 0px 22px 24px 0px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 32px;
+    align-self: stretch;
+    border-radius: 8px;
+    background-color: #FCFCFC;
+    padding: 24px;
+}
+
+.h1 {
+    position: absolute;
+    left: 20px;
+    top: 50px;
+}
+
+button {
+    display: flex;
+    padding: 12px 20px;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    border-radius: 12px;
+    border: 2px solid var(--Neutral-03, #EFEFEF);   
+    background: var(--Neutral-01, #FCFCFC);
+}
+
+
+.spin {
+    width: 16px;
+    height: 32px;
+    border-radius: 4px;
+    background-color: #B5E4CA;
+
+}
+
+.spin-v {
+    width: 16px;
+    height: 32px;
+    border-radius: 4px;
+    background-color: #CABDFF;
+
+}
+

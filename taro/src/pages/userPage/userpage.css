@@ -1,0 +1,66 @@
+.outline {
+    padding: 40px 40px 0 40px;
+    background-color: var( --n-grey);
+
+}
+
+.inner {
+    display: flex;
+    padding: 0px 22px 24px 0px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 32px;
+    align-self: stretch;
+    border-radius: 8px;
+    background-color: #FCFCFC;
+    padding: 24px;
+}
+
+.h1 {
+    position: absolute;
+    left: 20px;
+    top: 50px;
+}
+
+button {
+    display: flex;
+    padding: 12px 20px;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    border-radius: 12px;
+    border: 2px solid var(--Neutral-03, #EFEFEF);   
+    background: var(--Neutral-01, #FCFCFC);
+}
+
+.tools {
+    display: flex;
+    padding: 12px 12px 12px 0px;
+    align-items: center;
+    gap: 377px;
+    align-self: stretch;
+    border-radius: 8px;
+    align-items: stretch;
+    justify-content: space-around;
+}
+
+.filters {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+
+/* bad romance with coding */
+:where(.css-dev-only-do-not-override-49qm).ant-input-affix-wrapper {
+    width: 377px;
+    min-width: 377px;
+}
+
+
+.ant-menu.ant-menu-root.ant-menu-inline {
+    position: relative;
+    top: 0;
+    left: 0;
+    /* padding-top: 220px; */
+}
