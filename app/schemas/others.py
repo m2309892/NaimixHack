@@ -6,6 +6,10 @@ from pydantic import BaseModel, Field, EmailStr
 from typing import List, Optional
 from datetime import date, time
 
+
+from kerykeion import KerykeionChartSVG, AstrologicalSubject
+
+
 # Схема для Employee
 class EmployeeBase(BaseModel):
     name: str
@@ -16,7 +20,6 @@ class EmployeeBase(BaseModel):
     birth_place: str
     resume_url: Optional[str] = None
     bio: str
-    _type: str
     
     @field_validator("number")
     def validate_phone_number(cls, value: str) -> str:
@@ -30,10 +33,7 @@ class EmployeeCreate(EmployeeBase):
 
 class EmployeeRead(EmployeeBase):
     id: int
-    _type: str
 
-    class Config:
-        orm_mode = True
 
 
 class EmployeeUpdate(BaseModel):

@@ -1,10 +1,10 @@
 from fastapi.security import OAuth2PasswordBearer
 
 from app.models.config import config
-from app.models.user import User, Permission
+from app.models.user import User
 from app.schemas.user import User, Token, TokenData
 from app.utils import DbDep, get_db
-from app.crud.user import get_user_by_email, get_user_permissions
+from app.crud.user import get_user_by_email
 
 import jwt
 from functools import wraps
@@ -108,15 +108,15 @@ AuthDep = Annotated[User, Depends(get_current_active_user)]
 #         )
 #     return current_user
 
-def check_permissions(db: Session, user: User, *perms: str):
-    _perms = get_user_permissions(db, user.id)
-    _exp = HTTPException(
-            status_code=status.HTTP_403_FORBIDDEN,
-            detail='Permission denied'
-    )
-    if not _perms and len(perms) > 0:
-        raise _exp
-    _perms = list(map(lambda p: p.name, _perms))
-    for perm in perms:
-        if perm not in _perms:
-            raise _exp
+# def check_permissions(db: Session, user: User, *perms: str):
+#     _perms = get_user_permissions(db, user.id)
+#     _exp = HTTPException(
+#             status_code=status.HTTP_403_FORBIDDEN,
+#             detail='Permission denied'
+#     )
+#     if not _perms and len(perms) > 0:
+#         raise _exp
+#     _perms = list(map(lambda p: p.name, _perms))
+#     for perm in perms:
+#         if perm not in _perms:
+#             raise _exp
