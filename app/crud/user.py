@@ -10,6 +10,8 @@ from app.crud.others import get_advert_responses
 
 s3_session = boto3.session.Session()
 
+def get_all_users(db: Session) -> Union[list[dbu.User], None]:
+    return db.scalars(select(dbu.User)).all()
 
 #компания по айди
 def get_user_by_id(db: Session, id: int) -> dbu.User | None:

@@ -7,7 +7,6 @@ class User(Base):
     companyname: str
     email: EmailStr
     bio: str
-    logo: str = ''
 
 
 class UserPass(User):
@@ -19,7 +18,6 @@ class UserRegister(Base):
     email: EmailStr
     password: str
     bio: str = ''
-    photo: str = ''
 
 
 class ProfileRegister(Base):

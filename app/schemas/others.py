@@ -14,12 +14,12 @@ from kerykeion import KerykeionChartSVG, AstrologicalSubject
 class EmployeeBase(BaseModel):
     name: str
     surname: str
-    number: str
-    birth_date: date
-    birth_time: time
-    birth_place: str
+    number: str | None = None
+    birth_date: date 
+    birth_time: time | None = None
+    birth_place: str | None = None
     resume_url: Optional[str] = None
-    bio: str
+    bio: str | None = None
     
     @field_validator("number")
     def validate_phone_number(cls, value: str) -> str:
@@ -60,9 +60,6 @@ class TeamRead(TeamBase):
     id: int
     user_id: int
 
-    class Config:
-        orm_mode = True
-
 
 class TeamUpdate(BaseModel):
     name: Optional[str]
@@ -80,10 +77,6 @@ class CompanyEmployeeCreate(CompanyEmployeeBase):
 
 class CompanyEmployeeRead(CompanyEmployeeBase):
     id: int
-    _type: str
-
-    class Config:
-        orm_mode = True
 
 
 class CompanyEmployeeUpdate(EmployeeUpdate):
@@ -100,7 +93,7 @@ class AdvertBase(BaseModel):
 
 
 class AdvertCreate(AdvertBase):
-    pass
+    user_id: int
 
 
 class AdvertRead(AdvertBase):

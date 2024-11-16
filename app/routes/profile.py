@@ -7,6 +7,9 @@ import app.crud.others as crud_others
 
 router = APIRouter(prefix="/profile", tags=["profile"])
 
+@router.get("/all")
+def get_all(db: app.utils.DbDep) -> list[User]:
+    return crud_user.get_all_users(db)
 
 @router.post("/new/")
 def create_profile(data: ProfileRegister, db: app.utils.DbDep) -> User:
@@ -32,8 +35,8 @@ def get_adverts(id: int, db: app.utils.DbDep) -> list[AdvertRead]:
 
 
 @router.post("/{id}/add_advert")
-def post_advert(id: int, db: app.utils.DbDep, data: AdvertCreate) -> AdvertRead:
-    advert = crud_others.create_company_advert(db, id, **data.model_dump())
+def post_advert(db: app.utils.DbDep, data: AdvertCreate) -> AdvertRead:
+    advert = crud_others.create_company_advert(db, **data.model_dump())
     return advert
 
 
@@ -49,12 +52,12 @@ def get_advert_by_id(id: int, advert_id: int, db: app.utils.DbDep) -> AdvertRead
         
     raise HTTPException(status_code=404, detail="Advert not found")
 
-@router.get("/{id}/adverts/{advert_id}/responses")
+# @router.get("/{id}/adverts/{advert_id}/responses")
     
 
 @router.get("/{id}/responses")
-def get_all_responses(id: int, db: app.utils.DbDep) -> list[ResponseRead]:
-    responses = get_all_responses(db, id)
+def get_all_user_responses(id: int, db: app.utils.DbDep) -> list[ResponseRead]:
+    responses = crud_user.get_user_responses(db, id)
     
     if not responses:
         raise HTTPException(status_code=404, detail="Response not found")
@@ -63,8 +66,8 @@ def get_all_responses(id: int, db: app.utils.DbDep) -> list[ResponseRead]:
 
 
 @router.get("/{id}/responses/{response_id}")
-def get_response_by_id(id: int, db: app.utils.DbDep) -> ResponseRead:
-    response = get_response_by_id(db, id)
+def get_response_by_id(id: int, response_id: int, db: app.utils.DbDep) -> ResponseRead:
+    response = crud_others.get_response_by_id(db, response_id)
     
     if not response:
         raise HTTPException(status_code=404, detail="Response not found")

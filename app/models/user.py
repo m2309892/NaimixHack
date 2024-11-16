@@ -9,6 +9,8 @@ from sqlalchemy import String, TIMESTAMP, Column, Integer, ForeignKey, Table, Fe
 from app.models.base import Base, HasDates
 
 
+
+
 class User(Base, HasDates):
     __tablename__ = 'users'
 
@@ -17,11 +19,10 @@ class User(Base, HasDates):
     bio: Mapped[str] = mapped_column(String)
     email: Mapped[str] = mapped_column(String)
     password_hash: Mapped[str] = mapped_column(String)  
-    logo: Mapped[str] = mapped_column(String, nullable=True)
 
-    teams: Mapped[List["Team"]] = relationship(secondary='teams', back_populates='users')
-    company_emploees: Mapped[List["CompanyEmployee"]] = relationship(secondary='company_employees', back_populates='users')
-    company_adverts: Mapped[List["Advert"]] = relationship(secondary='user_adverts', back_populates='users')
+    teams: Mapped[List["Team"]] = relationship('Team', back_populates='user')
+    company_employees: Mapped[List["CompanyEmployee"]] = relationship('CompanyEmployee', back_populates='user')
+    company_adverts: Mapped[List["Advert"]] = relationship('Advert', back_populates='user')
 
 
 class Team(Base):
@@ -29,10 +30,14 @@ class Team(Base):
 
     id: Mapped[int] = mapped_column(primary_key=True)
     name: Mapped[str] = mapped_column(String)
+    
+    # Correct user_id mapping (removed primary_key=True)
 
-    company_employees: Mapped[List["CompanyEmployee"]] = relationship(secondary='company_employees', back_populates='teams')
-    user_id: Mapped[int] = mapped_column(ForeignKey('users.id'), primary_key=True)
-
+    user_id: Mapped[int] = mapped_column(ForeignKey('users.id'))  # ForeignKey relationship defined here
+    company_employees: Mapped[List["CompanyEmployee"]] = relationship('CompanyEmployee', back_populates='team')
+    
+    # Back reference to User
+    user: Mapped["User"] = relationship('User', back_populates='teams')
     
     
 class Advert(Base, HasDates):
@@ -44,50 +49,62 @@ class Advert(Base, HasDates):
     position: Mapped[str] = mapped_column(String)
     description: Mapped[str] = mapped_column(String)
     
-    responses: Mapped[List["Response"]] = relationship(secondary='responses', back_populates='adverts')
-    user_id: Mapped[int] = mapped_column(ForeignKey('users.id'), primary_key=True)
+    user_id: Mapped[int] = mapped_column(ForeignKey('users.id'))  # Corrected (removed primary_key=True)
+    responses: Mapped[List["Response"]] = relationship('Response', back_populates='advert')
+    
+    user: Mapped["User"] = relationship('User', back_populates='company_adverts')
+    
     
     
 class Response(Base, HasDates):
     __tablename__ = 'responses'
     
     id: Mapped[int] = mapped_column(primary_key=True)
-    emploee_id: Mapped[int] = mapped_column(ForeignKey('simple_employees.id'), primary_key=True)
-    advert_id: Mapped[int] = mapped_column(ForeignKey('adverts.id'), primary_key=True)
+    emploee_id: Mapped[int] = mapped_column(ForeignKey('simple_employees.id'))
+    advert_id: Mapped[int] = mapped_column(ForeignKey('user_adverts.id'))
+    
+    advert: Mapped["Advert"] = relationship('Advert', back_populates='responses')
+    simple_employee: Mapped["SimpleEmployee"] = relationship('SimpleEmployee', back_populates='responses')
+    
+
+
     
 
 class SimpleEmployee(Base):
     __tablename__ = 'simple_employees'
     
-    
     id: Mapped[int] = mapped_column(primary_key=True)
     name: Mapped[str] = mapped_column(String)
     surname: Mapped[str] = mapped_column(String)
-    number: Mapped[str] = mapped_column(String)
+    number: Mapped[str] = mapped_column(String, nullable=True)
     birth_date: Mapped[Date] = mapped_column(Date)
-    birth_time: Mapped[Time] = mapped_column(Time)
-    birth_place: Mapped[str] = mapped_column(String)
+    birth_time: Mapped[Time] = mapped_column(Time, nullable=True)
+    birth_place: Mapped[str] = mapped_column(String, nullable=True)
     resume_url: Mapped[str] = mapped_column(String, nullable=True)
-    bio: Mapped[str] = mapped_column(String)
+    bio: Mapped[str] = mapped_column(String, nullable=True)
     
-    responses: Mapped[List["Response"]] = relationship(secondary='responses', back_populates='simple_employees')
+    responses: Mapped[List["Response"]] = relationship('Response', back_populates='simple_employee')
     
     
-
+    
+    
 class CompanyEmployee(Base):
     __tablename__ = 'company_employees'
     
     id: Mapped[int] = mapped_column(primary_key=True)
     name: Mapped[str] = mapped_column(String)
     surname: Mapped[str] = mapped_column(String)
-    number: Mapped[str] = mapped_column(String)
+    number: Mapped[str] = mapped_column(String, nullable=True)
     birth_date: Mapped[Date] = mapped_column(Date)
-    birth_time: Mapped[Time] = mapped_column(Time)
-    birth_place: Mapped[str] = mapped_column(String)
+    birth_time: Mapped[Time] = mapped_column(Time, nullable=True)
+    birth_place: Mapped[str] = mapped_column(String, nullable=True)
     resume_url: Mapped[str] = mapped_column(String, nullable=True)
-    bio: Mapped[str] = mapped_column(String)
+    bio: Mapped[str] = mapped_column(String, nullable=True)
     
     
-    user_id: Mapped[int] = mapped_column(ForeignKey('users.id'), primary_key=True)
-    team_id: Mapped[int] = mapped_column(ForeignKey('teams.id'), primary_key=True)
+    user_id: Mapped[int] = mapped_column(ForeignKey('users.id'))
+    team_id: Mapped[int] = mapped_column(ForeignKey('teams.id'))
     
+    
+    user: Mapped["User"] = relationship('User', back_populates='company_employees')
+    team: Mapped["Team"] = relationship('Team', back_populates='company_employees')
