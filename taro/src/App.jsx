@@ -8,7 +8,10 @@ import ResearchPage from './pages/researchPage/researchPage'
 
 function App() {
   const [page, setPage] = useState(0);
-  const [band, setBand] = useState([]); //teamId, personId
+  const [band, setBand] = useState(
+    {researches: [0, 1, 2],
+    companies: [] 
+    }); 
  
   return (
     <div className="App">

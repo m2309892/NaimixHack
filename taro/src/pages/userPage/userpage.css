@@ -50,6 +50,11 @@ button {
     gap: 12px;
 }
 
+.groups {
+    display: flex;
+    flex-direction: row;
+    gap: 32px;
+}
 
 /* bad romance with coding */
 :where(.css-dev-only-do-not-override-49qm).ant-input-affix-wrapper {
@@ -62,5 +67,6 @@ button {
     position: relative;
     top: 0;
     left: 0;
+    height: calc(100vh - 96px);
     /* padding-top: 220px; */
 }

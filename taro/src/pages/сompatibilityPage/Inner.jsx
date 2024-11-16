@@ -1,4 +1,5 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
+import TrendCard from './cardTrend/cardTrend';
 // import { PlusOutlined, FilterOutlined} from '@ant-design/icons';
 // import { Input } from "antd";
 // import { SvgMenu } from '../../components/Icons';
@@ -6,21 +7,19 @@ import React, { useCallback } from 'react';
 
 
 const InnerUser = ({setPage, page}) => {
+    const [data, setData] = useState(null);
+
+    useEffect(() => {
+        setData({data: 45, trend: 23});
+
+    }, [])
 
     return(
         <>
-        <h1 className="h1">Расчитать совместимость</h1>
-        {/* <div className="inner">
-            <div className="tools">
-            <Input 
-            suffix={SvgMenu}
-            />
-            <button onClick={() => {navigate('/add')}}>Рассчитать</button>
-            <button onClick={() => {navigate('/compatibility')}}><PlusOutlined /></button>
-            <button><FilterOutlined /></button>
-          </div>
-          <TableGen/>
-        </div> */}
+        <h1 className="h1">Совместимость</h1>
+        <TrendCard  data={data.data} trend={data.trend}/>
+        <div className="inner">
+        </div>
         </>
     )
 }

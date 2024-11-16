@@ -1,0 +1,51 @@
+.trend-card {
+    display: flex;
+    padding: 8px;
+    align-items: flex-start;
+    flex: 1 0 0;
+    border-radius: 12px;
+    background-color: #FCFCFC;
+}
+
+.inn-card:first-child {
+    color: #6F767E;
+    /* Caption 1 */
+    font-family: Inter;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 16px; /* 123.077% */
+    letter-spacing: -0.13px;
+}
+
+.inn-card:nth-child(2) {
+    color: var(--Neutral-07, #1A1D1F);
+    /* H2 */
+    font-family: Inter;
+    font-size: 48px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 48px; /* 100% */
+    letter-spacing: -1.44px;
+}
+
+
+.red {
+    display: flex;
+    padding: 4px;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    border-radius: 8px;
+    background: #FFE7E4;
+}
+
+.green {
+    display: flex;
+    padding: 4px;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    border-radius: 8px;
+    background-color: var(--Neutral-01, #FCFCFC);
+}

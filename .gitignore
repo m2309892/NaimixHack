@@ -164,7 +164,7 @@ cython_debug/
 
 
 # dependencies
-/node_modules
+/taro/node_modules
 /.pnp
 .pnp.js
 
