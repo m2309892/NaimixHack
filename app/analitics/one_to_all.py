@@ -29,7 +29,7 @@ def graph_color_2(G, cand_id):
             net.add_edge(u, v, title=f'Вес: {edge_weight}', width = 5, color='black')
     net.show('graph_1.html')
 
-def team_select(team_names, team_edges, cand, cand_edges, threshold = 60):
+def one_to_all(team_names, team_edges, cand, cand_edges, threshold = 60):
     team_edges = weights_normal(team_edges)
     #создаем граф команды
     G = g_t.graph_with_thresholds(team_names, team_edges, threshold)
