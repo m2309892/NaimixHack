@@ -65,7 +65,10 @@ def get_natal_svg_by_company_user_id(company_user_id: int, db: DbDep) -> FileRes
     info = convert_bd_data(user.birth_date, user.birth_time)
     
     file_path = get_natal_svg(info)
-    
+    if os.path.exists(file_path):
+        return FileResponse(file_path, media_type="image/svg+xml")
+    else:
+        return {"error": "SVG-файл не найден"}
 
 # @router.get("/oftwo")
 # def get_score_of_two()
