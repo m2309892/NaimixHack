@@ -22,7 +22,15 @@ def get_natal_svg(data: dict):
 
     employee = AstrologicalSubject(name, year, month, day, hour, minute, lng=50, lat=50, tz_str="Europe/Rome", city="Rome")
     
-    return KerykeionChartSVG(employee, "Natal")
+    synastry_chart = KerykeionChartSVG(employee, "Natal", new_output_directory="extrafiles")
+    svg_content = synastry_chart.makeSVG()
+
+# Сохранение SVG-файла
+    file_path = "extrafiles/synastry_chart.svg"
+    with open(file_path, "w") as svg_file:
+        svg_file.write(svg_content)
+        
+    return file_path
 
 
 
@@ -30,7 +38,15 @@ def get_two_users_synstry_svg(data1: dict, data2: dict):
     emp1 = get_natal_user_map(data1)
     emp2 = get_natal_user_map(data2)
     
-    return KerykeionChartSVG(emp1, "Synastry", emp2)
+    synastry_chart = KerykeionChartSVG(emp1, "Synastry", emp2, new_output_directory="extrafiles")
+    svg_content = synastry_chart.makeSVG()
+
+# Сохранение SVG-файла
+    file_path = "extrafiles/synastry_chart2.svg"
+    with open(file_path, "w") as svg_file:
+        svg_file.write(svg_content)
+        
+    return file_path
 
 
 

@@ -4,12 +4,13 @@ from app.src.schemas.others import AdvertRead, ResponseRead, EmployeeRead
 import app.src.crud.user as crud_user
 import app.src.crud.others as crud_others
 from kerykeion import KerykeionChartSVG, AstrologicalSubject
-from fastapi.responses import Response
+from fastapi.responses import FileResponse
 from kerykeion.kr_types.kr_models import AstrologicalSubjectModel
 
 from app.src.utils.astro import *
 from app.src.utils.convert import *
 from app.src.utils import DbDep
+import os
 
 router = APIRouter(prefix="/astro", tags=["astro"])
 
@@ -26,7 +27,7 @@ def get_natal_by_simple_user_id(simple_user_id: int, db: DbDep) -> AstrologicalS
 
 
 @router.get("/{simple_user_id}/svg")
-def get_natal_svg_by_simple_user_id(simple_user_id: int, db: DbDep) -> Response:
+def get_natal_svg_by_simple_user_id(simple_user_id: int, db: DbDep) -> FileResponse:
     user = crud_others.get_simple_employee_by_id(db, simple_user_id)
     
     if not user:
@@ -34,9 +35,12 @@ def get_natal_svg_by_simple_user_id(simple_user_id: int, db: DbDep) -> Response:
     
     info = convert_bd_data(user.birth_date, user.birth_time)
     
-    chart_svg = get_natal_svg(info)
-
-    return Response(content=str(chart_svg), media_type="image/svg+xml")
+    file_path = get_natal_svg(info)
+    if os.path.exists(file_path):
+        return FileResponse(file_path, media_type="image/svg+xml")
+    else:
+        return {"error": "SVG-файл не найден"}
+    
 
 
 @router.get("/{company_user_id}/")
@@ -52,7 +56,7 @@ def get_natal_by_company_user_id(company_user_id: int, db: DbDep) -> Astrologica
 
 
 @router.get("/{company_user_id}/svg")
-def get_natal_svg_by_company_user_id(company_user_id: int, db: DbDep) -> Response:
+def get_natal_svg_by_company_user_id(company_user_id: int, db: DbDep) -> FileResponse:
     user = crud_others.get_company_employee_by_id(db, company_user_id)
     
     if not user:
@@ -60,9 +64,8 @@ def get_natal_svg_by_company_user_id(company_user_id: int, db: DbDep) -> Respons
     
     info = convert_bd_data(user.birth_date, user.birth_time)
     
-    chart_svg = get_natal_svg(info)
+    file_path = get_natal_svg(info)
     
-    return Response(content=str(chart_svg), media_type="image/svg+xml")
 
 # @router.get("/oftwo")
 # def get_score_of_two()
