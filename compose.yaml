@@ -30,6 +30,20 @@ services:
       - backend
     ports:
       - "8000:8000"  # Порт, на котором будет работать приложение
+    volumes:
+      - ~/my_docker/svg_data:/root/svg_data
+
+  # frontend:
+  #   build: front
+  #   container_name: taro_frontend
+  #   ports:
+  #     - "3000:3000"
+  #   volumes:
+  #     - .:/app
+  #   environment:
+  #     - NODE_ENV=development
+
+
 
 # Объем для данных базы данных
 volumes:

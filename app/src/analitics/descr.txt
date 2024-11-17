@@ -1,5 +1,5 @@
 NaimixHack
-taroo/
+analytics/
 │
 ├── sup_func/
 │   ├── one_to_all.py
@@ -10,7 +10,7 @@ taroo/
 ├──one_to_all.py
 ├──team_select.py
 │
-├── requirements.txt
+├
 └── README.md
 
 основные функции реализованы в файлах one_to_all.py и team_select.py

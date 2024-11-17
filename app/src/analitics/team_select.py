@@ -1,7 +1,7 @@
 from pyvis.network import Network
-from sup_func.weights_normalization import *
-from sup_func.team_percentage import team_percentage
-import app.analitics.graph_with_thresholds as g_t
+from app.src.analitics.sup_func.weights_normalization import *
+from app.src.analitics.sup_func.team_percentage import team_percentage
+import app.src.analitics.graph_with_thresholds as g_t
 
 
 def graph_color_1(G):

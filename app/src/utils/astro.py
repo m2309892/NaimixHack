@@ -1,4 +1,4 @@
-from kerykeion import AstrologicalSubject, relationship_score, KerykeionChartSVG, ChartType
+from kerykeion import AstrologicalSubject, relationship_score, KerykeionChartSVG, ChartType, RelationshipScore
 import os
 
 def get_natal_user_map(data: dict):
@@ -64,4 +64,4 @@ def get_score(data1: dict, data2: dict):
     emp1 = get_natal_user_map(data1)
     emp2 = get_natal_user_map(data2)
     
-    return relationship_score(emp1, "Synastry", emp2)
+    return RelationshipScore(emp1, emp2).score
