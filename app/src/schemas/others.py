@@ -21,11 +21,11 @@ class EmployeeBase(BaseModel):
     resume_url: Optional[str] = None
     bio: str | None = None
     
-    @field_validator("number")
-    def validate_phone_number(cls, value: str) -> str:
-        if not re.match(r'^\+\d{5,15}$', value):
-            raise ValueError('Номер телефона должен начинаться с "+" и содержать от 5 до 15 цифр')
-        return value
+    # @field_validator("number")
+    # def validate_phone_number(cls, value: str) -> str:
+    #     if not re.match(r'^\+\d{5,15}$', value):
+    #         raise ValueError('Номер телефона должен начинаться с "+" и содержать от 5 до 15 цифр')
+    #     return value
     
 
 class EmployeeCreate(EmployeeBase):
@@ -53,7 +53,7 @@ class TeamBase(BaseModel):
     
 
 class TeamCreate(TeamBase):
-    pass
+    user_id: int
 
 
 class TeamRead(TeamBase):
@@ -67,8 +67,8 @@ class TeamUpdate(BaseModel):
 
 # Схема для CompanyEmployee
 class CompanyEmployeeBase(EmployeeBase):
-    user_id: int
-    team_id: int
+    user_id: int 
+    team_id: Optional[int]
 
 
 class CompanyEmployeeCreate(CompanyEmployeeBase):

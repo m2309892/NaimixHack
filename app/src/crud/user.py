@@ -29,7 +29,7 @@ def get_user_employees(db: Session, id: int) -> Union[list[dbu.CompanyEmployee],
     user: Type[User] | None = db.get(dbu.User, id)
     if not user:
         return None
-    return user.company_emploees
+    return user.company_employees
 
 #объявления компании
 def get_user_adverts(db: Session, id: int) -> Union[list[dbu.Advert], None]:
@@ -37,6 +37,14 @@ def get_user_adverts(db: Session, id: int) -> Union[list[dbu.Advert], None]:
     if not user:
         return None
     return user.company_adverts
+
+
+def get_user_teams(db: Session, id: int) -> Union[list[dbu.Team], None]:
+    user: Type[User] | None = db.get(dbu.User, id)
+    if not user:
+        return None
+    return user.teams
+
 
 #отклики на вакансии компании
 def get_user_responses(db: Session, id: int) -> Union[list[dbu.Response], None]:

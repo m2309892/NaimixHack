@@ -60,9 +60,9 @@ def create_random_simple_employees(num_employees=10):
             name=fake.first_name(),
             surname=fake.last_name(),
             number=fake.phone_number(),
-            birth_date=fake.date_of_birth(minimum_age=18, maximum_age=65),
+            birth_date=fake.date(),
             birth_time=fake.time(),
-            birth_place=fake.city(),
+            birth_place="Atlanta",
             resume_url=fake.url(),
             bio=fake.text(max_nb_chars=200)
         )
@@ -81,7 +81,7 @@ def create_random_company_employees(num_employees=10, users=None, teams=None):
             number=fake.phone_number(),
             birth_date=fake.date_of_birth(minimum_age=18, maximum_age=65),
             birth_time=fake.time(),
-            birth_place=fake.city(),
+            birth_place="Atlanta",
             resume_url=fake.url(),
             bio=fake.text(max_nb_chars=200),
             user_id=choice(users).id,

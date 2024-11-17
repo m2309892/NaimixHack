@@ -103,7 +103,7 @@ class CompanyEmployee(Base):
     
     
     user_id: Mapped[int] = mapped_column(ForeignKey('users.id'))
-    team_id: Mapped[int] = mapped_column(ForeignKey('teams.id'))
+    team_id: Mapped[int] = mapped_column(ForeignKey('teams.id'), nullable=True)
     
     
     user: Mapped["User"] = relationship('User', back_populates='company_employees')

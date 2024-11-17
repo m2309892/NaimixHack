@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException, UploadFile
 import app.src.utils
 from app.src.schemas.user import User, UserUpdate, ProfileRegister
-from app.src.schemas.others import AdvertRead, ResponseRead, AdvertCreate
+from app.src.schemas.others import AdvertRead, ResponseRead, AdvertCreate, CompanyEmployeeRead, CompanyEmployeeCreate, TeamCreate, TeamRead
 import app.src.crud.user as crud_user
 import app.src.crud.others as crud_others
 from app.src.utils import DbDep
@@ -11,6 +11,7 @@ router = APIRouter(prefix="/profile", tags=["profile"])
 @router.get("/all")
 def get_all(db: DbDep) -> list[User]:
     return crud_user.get_all_users(db)
+
 
 @router.post("/new/")
 def create_profile(data: ProfileRegister, db: DbDep) -> User:
@@ -24,7 +25,6 @@ def get_profile(id: int, db: DbDep) -> User:
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
     return user
-
 
 
 @router.get("/{id}/adverts/")
@@ -74,8 +74,49 @@ def get_response_by_id(id: int, response_id: int, db: DbDep) -> ResponseRead:
         raise HTTPException(status_code=404, detail="Response not found")
     
     return response
+
+
+@router.get("/{id}/employees")
+def get_company_employees(id: int, db: DbDep) -> list[CompanyEmployeeRead]:
+    response = crud_user.get_user_employees(db, id)
     
+    if not response:
+        raise HTTPException(status_code=404, detail="Response not found")
     
+    return response
+
+
+@router.post("/{id}/employees/add_employee")
+def create_company_employee(db: DbDep, data: CompanyEmployeeCreate) -> CompanyEmployeeRead:
+    response = crud_others.create_company_employee(db, **data.model_dump())
+    return response
+
+
+@router.post("/{id}/employees/add_team")
+def create_company_team(db: DbDep, data: TeamCreate) -> TeamRead:
+    response = crud_others.create_company_team(db, **data.model_dump())
+    return response
+    
+
+@router.get("/{id}/employees/teams")
+def get_company_teams(db: DbDep, id: int) -> list[TeamRead]:
+    response = crud_user.get_user_teams(db, id)
+    
+    if not response:
+        raise HTTPException(status_code=404, detail="Response not found")
+    
+    return response
+
+
+@router.get("/{id}/employees/{employee_id}")
+def get_company_employee(db: DbDep, employee_id: int, id: int) -> CompanyEmployeeRead:
+    response = crud_others.get_company_employee_by_id(db, employee_id)
+    
+    if not response:
+        raise HTTPException(status_code=404, detail="Response not found")
+    
+    return response
+
 
 # @router.patch("/{id}/update/")
 # def update_profile(id: int, data: UserUpdate, db: app.utils.DbDep) -> User:

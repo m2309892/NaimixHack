@@ -1,6 +1,5 @@
 from kerykeion import AstrologicalSubject, relationship_score, KerykeionChartSVG, ChartType
 
-
 def get_natal_user_map(data: dict):
     name = data.get("name", "user")
     year = data.get("year", None)
@@ -8,9 +7,8 @@ def get_natal_user_map(data: dict):
     day = data.get("day", None)
     hour = data.get("hour", 12)
     minute = data.get("minute", 00)
-    city = data.get("city", "London")
     
-    return AstrologicalSubject(name, year, month, day, hour, minute, city)
+    return AstrologicalSubject(name, year, month, day, hour, minute, lng=50, lat=50, tz_str="Europe/Rome", city="Rome")
 
 
 
@@ -21,9 +19,8 @@ def get_natal_svg(data: dict):
     day = data.get("day", None)
     hour = data.get("hour", 12)
     minute = data.get("minute", 00)
-    city = data.get("city", "London")
 
-    employee = AstrologicalSubject(name, year, month, day, hour, minute, city)
+    employee = AstrologicalSubject(name, year, month, day, hour, minute, lng=50, lat=50, tz_str="Europe/Rome", city="Rome")
     
     return KerykeionChartSVG(employee, "Natal")
 

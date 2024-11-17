@@ -1,8 +1,7 @@
 from datetime import date, time
 
 def convert_bd_data(date: date,
-                    time: time,
-                    place: str):
+                    time: time,):
     
     year = date.year
     month = date.month
@@ -17,7 +16,6 @@ def convert_bd_data(date: date,
         "day": day,
         "hour": hour,
         "minute": minute,
-        "city": place 
     }
 
     return converted_data

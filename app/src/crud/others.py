@@ -15,14 +15,16 @@ def get_company_employee_by_id(db: Session, id: int) -> dbu.CompanyEmployee | No
     return db.get(dbu.CompanyEmployee, id)
 
 @overload
-def create_company_employee(db: Session, name: str,
+def create_company_employee(db: Session, 
+                user_id: int,
+                name: str,
                 surname: str,
-                number: str,
+                number: str | None,
                 bith_date: date,
                 bith_time: time | None,
                 bith_place: str | None,
-                resume_url: str,
-                bio: str) -> dbu.CompanyEmployee:
+                resume_url: str |None,
+                bio: str | None) -> dbu.CompanyEmployee:
     ...
 
 
@@ -68,7 +70,7 @@ def get_team_employees(db: Session, team_id: int) -> Union[list[dbu.CompanyEmplo
     return team.company_employees
 
 #команда по айди
-def get_company_employee_by_id(db: Session, id: int) -> dbu.Team| None: 
+def get_company_team_by_id(db: Session, id: int) -> dbu.Team| None: 
     return db.get(dbu.Team, id)
 
 @overload
