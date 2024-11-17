@@ -4,7 +4,7 @@
 # - From 10 to 15 = Important relationship 
 # - From 15 to 20 = Very important relationship 
 # - From 20 to su = Exceptional relationshi
-def weights_normal(edges):
+def weights_normal(edges: tuple):
     new_edges = []
     #print('normalized')
     for edge in edges:

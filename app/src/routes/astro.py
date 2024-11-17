@@ -3,6 +3,7 @@ import app.src.crud.user as crud_user
 import app.src.crud.others as crud_others
 from fastapi.responses import FileResponse
 from kerykeion.kr_types.kr_models import AstrologicalSubjectModel
+from typing import Dict, Tuple, List
 
 from app.src.utils.astro import *
 from app.src.utils.convert import *
@@ -28,7 +29,7 @@ def get_natal_by_simple_user_id(simple_user_id: int, db: DbDep) -> AstrologicalS
 
 
 @router.get("/{simple_user_id}/svg")
-def get_natal_svg_by_simple_user_id(simple_user_id: int, db: DbDep) -> FileResponse:
+def get_natal_svg_by_simple_user_id(simple_user_id: int, db: DbDep) -> Dict[str, str] | str:
     user = crud_others.get_simple_employee_by_id(db, simple_user_id)
     
     if not user:
@@ -38,7 +39,7 @@ def get_natal_svg_by_simple_user_id(simple_user_id: int, db: DbDep) -> FileRespo
     
     file_path = get_natal_svg(info)
     if os.path.exists(file_path):
-        return FileResponse(file_path, media_type="image/svg+xml")
+        return file_path
     else:
         return {"error": "SVG-файл не найден"}
     
@@ -57,7 +58,7 @@ def get_natal_by_company_user_id(company_user_id: int, db: DbDep) -> Astrologica
 
 
 @router.get("/{company_user_id}/svg")
-def get_natal_svg_by_company_user_id(company_user_id: int, db: DbDep) -> FileResponse:
+def get_natal_svg_by_company_user_id(company_user_id: int, db: DbDep) -> Dict[str, str] | str:
     user = crud_others.get_company_employee_by_id(db, company_user_id)
     
     if not user:
@@ -67,7 +68,7 @@ def get_natal_svg_by_company_user_id(company_user_id: int, db: DbDep) -> FileRes
     
     file_path = get_natal_svg(info)
     if os.path.exists(file_path):
-        return FileResponse(file_path, media_type="image/svg+xml")
+        return file_path
     else:
         return {"error": "SVG-файл не найден"}
 
@@ -115,13 +116,13 @@ def get_params_of_team_and_employee(team_id: int, simple_employee_id: int, db: D
     
     
     for i in range(len(list1)):
-        for j in range(i, len(list1)):
+        for j in range(i+1, len(list1)):
             s = get_score(convert_bd_data(list1[i].birth_date, list1[i].birth_time), convert_bd_data(list1[j].birth_date, list1[j].birth_time))
             t = tuple[list1[i].id, list1[j].id, s]
             team.append(t)
     
     
-    for emp in list:
+    for emp in list1:
         names[emp.id] = emp.name
         s = get_score(convert_bd_data(emp.birth_date, emp.birth_time), convert_bd_data(new.birth_date, new.birth_time))
         t1 = tuple[emp.id, new.id, s]
@@ -136,16 +137,17 @@ def get_params_of_team_and_employee(team_id: int, simple_employee_id: int, db: D
 def get_graf_of_team_and_employee(team_id: int, simple_employee_id: int, db: DbDep):
     one_to_all(get_params_of_team_and_employee(team_id, simple_employee_id, db))
     
+    
 
 @router.get("score/{team_id}/{simple_employee_id}/") 
-def get_graf_of_team_and_employee(team_id: int, simple_employee_id: int, db: DbDep) -> tuple[float, float, float]:
+def get_graf_of_team_and_employee(team_id: int, simple_employee_id: int, db: DbDep) -> Tuple[float, float, float]:
     names, team, employee, memb = get_params_of_team_and_employee(team_id, simple_employee_id, db)
     
     return all_percentage(team, memb)
 
 
 
-def get_params_random_team(data: dict[int], db: DbDep) -> tuple[float, float]:
+def get_params_random_team(data: List[int], db: DbDep) -> Tuple[float, float]:
     list1 = []
     list1.append(crud_others.get_simple_employee_by_id(db, data[0]))
     for i in range(1, len(data)):
@@ -167,7 +169,7 @@ def get_params_random_team(data: dict[int], db: DbDep) -> tuple[float, float]:
 
 #team_select - все разом (граф, общий процент), принимает словарь ид, имя, список кортежей (ид1б ид2б скор)
 @router.get("/company_employees") 
-def get_graf_and_score_random_team(data: dict[int], db: DbDep) -> tuple[float, float]:
+def get_graf_and_score_random_team(data: List[int], db: DbDep) -> Tuple[float, float]:
     names, team = get_params_random_team(data, db)
             
     return team_select(names, team)
