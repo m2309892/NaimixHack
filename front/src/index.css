@@ -1,0 +1,63 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+body {
+  font-family: 'Inter', sans-serif;
+}
+
+
+* {
+  --n-grey: #EFEFEF;
+  --Secondary-04: #B5E4CA;
+}
+
+.App {
+  display: flex;
+  flex-direction: row;
+  padding-top: 96px;
+}
+
+.body {
+  width: calc(100% - 340px);
+}
+
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.title {
+  display: flex;
+  gap: 10px;
+}
+
+.title span {
+  color: var(--Neutral-07, #1A1D1F);
+  /* Title 1 (Semibold) */
+  font-family: Inter;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 32px; /* 160% */
+  letter-spacing: -0.4px;
+}
+
+
+.blue-btn {
+  display: flex;
+  border-radius: 12px;
+  background-color: #2A85FF;
+}

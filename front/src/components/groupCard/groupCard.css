@@ -1,0 +1,36 @@
+.card {
+    height: 225px;
+    align-self: stretch;
+    background-color: #A0A0A0;
+    border-radius: 12px;
+    flex: 1 0 0;
+}
+
+.card:first-child {
+    color: #1A1D1F;
+    /* Base 1 (Semibold) */
+    font-family: Inter;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 24px; /* 160% */
+    letter-spacing: -0.15px;
+}
+
+.crad:nth-child(2) {
+    color: #9A9FA5;
+    text-align: center;
+    /* Base 2 */
+    font-family: Inter;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 24px; /* 171.429% */
+    letter-spacing: -0.14px;
+}
+
+.check {
+    position: relative;
+    right: 5px;
+    top: 5px;
+}

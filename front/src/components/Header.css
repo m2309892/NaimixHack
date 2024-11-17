@@ -1,0 +1,43 @@
+.headerAdmin {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 96px;
+    width: 100%;
+    padding: 16px 32px 4px 24px; /* соответствует pl-6 pt-4 pr-8 pb-1 */
+    background-color: white;
+    z-index: 10;
+}
+
+.headerAdmin .header-content {
+    display: flex;
+    flex-direction: row;
+    gap: 16px; /* соответствует gap-4 */
+    align-items: center;
+    justify-content: space-between;
+}
+
+.headerAdmin .left-section {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+}
+
+.headerAdmin .left-section span {
+    font-weight: 600; /* соответствует font-semibold */
+    font-size: 32px;
+}
+
+.headerAdmin .right-section {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+}
+
+.headerAdmin button {
+    padding: 0;
+    border: 0;
+    background-color: transparent;
+}
