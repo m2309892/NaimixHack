@@ -17,13 +17,13 @@ def graph_color_1(G):
 
 
 
-def team_select(names, edges, threshold):
+def team_select(names, edges, threshold = 70):
     edges = weights_normal(edges)
     
-    main_percent = team_percentage(edges)
+    # main_percent = team_percentage(edges)
     
     G = g_t.graph_with_thresholds(names, edges, threshold)
     e = (list(G.edges(data = True)))
     subgraph_percent = sum(edge[2]['weight'] for edge in e)/len(e)
     graph_color_1(G)
-    return main_percent,  subgraph_percent
+    return subgraph_percent
