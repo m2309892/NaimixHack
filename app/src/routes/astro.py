@@ -10,11 +10,12 @@ from kerykeion.kr_types.kr_models import AstrologicalSubjectModel
 
 from app.src.utils.astro import *
 from app.src.utils.convert import *
+from app.src.utils import DbDep
 
 router = APIRouter(prefix="/astro", tags=["astro"])
 
 @router.get("/{simple_user_id}/")
-def get_natal_by_simple_user_id(simple_user_id: int, db: app.utils.DbDep) -> AstrologicalSubjectModel:
+def get_natal_by_simple_user_id(simple_user_id: int, db: DbDep) -> AstrologicalSubjectModel:
     user = crud_others.get_simple_employee_by_id(db, simple_user_id)
     
     info = convert_bd_data(user.birth_date, user.birth_time, user.birth_place)
@@ -23,7 +24,7 @@ def get_natal_by_simple_user_id(simple_user_id: int, db: app.utils.DbDep) -> Ast
 
 
 @router.get("/{simple_user_id}/svg")
-def get_natal_svg_by_simple_user_id(simple_user_id: int, db: app.utils.DbDep) -> Response:
+def get_natal_svg_by_simple_user_id(simple_user_id: int, db: DbDep) -> Response:
     user = crud_others.get_simple_employee_by_id(db, simple_user_id)
     
     info = convert_bd_data(user.birth_date, user.birth_time, user.birth_place)
@@ -34,7 +35,7 @@ def get_natal_svg_by_simple_user_id(simple_user_id: int, db: app.utils.DbDep) ->
 
 
 @router.get("/{company_user_id}/")
-def get_natal_by_company_user_id(company_user_id: int, db: app.utils.DbDep) -> AstrologicalSubjectModel:
+def get_natal_by_company_user_id(company_user_id: int, db: DbDep) -> AstrologicalSubjectModel:
     user = crud_others.get_company_employee_by_id(db, company_user_id)
     
     info = convert_bd_data(user.birth_date, user.birth_time, user.birth_place)
@@ -43,7 +44,7 @@ def get_natal_by_company_user_id(company_user_id: int, db: app.utils.DbDep) -> A
 
 
 @router.get("/{company_user_id}/svg")
-def get_natal_svg_by_company_user_id(company_user_id: int, db: app.utils.DbDep) -> Response:
+def get_natal_svg_by_company_user_id(company_user_id: int, db: DbDep) -> Response:
     user = crud_others.get_company_employee_by_id(db, company_user_id)
     
     info = convert_bd_data(user.birth_date, user.birth_time, user.birth_place)

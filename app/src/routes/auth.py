@@ -6,7 +6,7 @@ from fastapi.security import OAuth2PasswordRequestForm
 
 import app.src.crud.user
 from app.src.crud.user import get_user_by_email, create_user
-from app.src.models import config
+from app.src.models.config import config
 
 from app.src.utils import DbDep
 from app.src.schemas.user import UserRegister

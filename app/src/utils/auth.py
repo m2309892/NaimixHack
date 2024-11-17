@@ -1,10 +1,10 @@
 from fastapi.security import OAuth2PasswordBearer
 
-from app.models.config import config
-from app.models.user import User
-from app.schemas.user import User, Token, TokenData
-from app.utils import DbDep, get_db
-from app.crud.user import get_user_by_email
+from app.src.models.config import config
+from app.src.models.user import User
+from app.src.schemas.user import User, Token, TokenData
+from app.src.utils import DbDep, get_db
+from app.src.crud.user import get_user_by_email
 
 import jwt
 from functools import wraps
