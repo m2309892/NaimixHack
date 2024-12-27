@@ -28,3 +28,4 @@ Backend: python, FastAPI, Postgresql
 Лолаева Тереза - аналитик, СПБГУ
 
 
+![image](https://github.com/user-attachments/assets/6b82793a-d56d-4358-9017-a95e1fee1ed5)
